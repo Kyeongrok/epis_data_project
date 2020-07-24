@@ -43,7 +43,7 @@ def file_parse(string):
 
 # 20191022000000001384
 rows = []
-for row in jo[:1]:
+for row in jo:
     # data_id = format(row['data_id'], '.0f')
     # print(row['data_nm'], data_id)
     # file인 것을 수집해야 한다
