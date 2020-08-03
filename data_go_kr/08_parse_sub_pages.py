@@ -15,11 +15,19 @@ def get_text(tr):
 def get_text_single(td):
     div_td = td.find('div', {'class':'td'})
     div_th = td.find('div', {'class':'th'})
-    return {div_th.text:re.sub("(\n|\t)","",div_td.text)}
+    field_name = div_th.text
+    value = re.sub("(\n|\t)","",div_td.text)
+
+    if field_name == '관리부서 전화번호':
+        value  = get_phone_no(td.find('script'))
+    return {field_name : value}
 
 def get_phone_no(script_obj):
     rrr = findMatchedTexts(str(script_obj), 'var.*"')[0]
-    nnn = findMatchedTexts(rrr, '[0-9]+')[0]
+    matched = findMatchedTexts(rrr, '[0-9]+')
+    nnn = None
+    if len(matched) > 0:
+        nnn = matched[0]
     return nnn
 
 def get_title(data_set_title_obj):
@@ -53,7 +61,7 @@ onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
 
 total_result = []
 cnt = 0
-for file_name in onlyfiles[:100]:
+for file_name in onlyfiles:
     string = open(mypath + file_name).read()
     spli = file_name.split('_')
     # print(file.read())
@@ -62,8 +70,13 @@ for file_name in onlyfiles[:100]:
         result = parse_data(string)
         # print(result)
         print(cnt, file_name)
+        file_nm_spl = file_name.split('_')
+        data_id = file_nm_spl[1]
+        data_type = spli[2].replace('.html','')
+        result['data_id'] = data_id
+        result['data_url'] = 'https://www.data.go.kr/data/{}/{}.do'.format(data_id, data_type)
         result['file_name'] = file_name
-        result['type'] = spli[2].replace('.html','')
+        result['type'] = data_type
         cnt+=1
         total_result.append(result)
     except Exception as e:
@@ -72,3 +85,4 @@ for file_name in onlyfiles[:100]:
 file = open('data_go_kr_total_result.json', 'w+')
 file.write(json.dumps(total_result))
 
+print(total_result[0])

@@ -37,7 +37,10 @@ onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
 total_result = []
 for file_name in onlyfiles:
     file = open(mypath + file_name)
-    total_result.append(parse_mafra_subpage(file.read()))
+    row = parse_mafra_subpage(file.read())
+    data_id = file_name.split('_')[1].replace('.html', '')
+    row.update({'data_id':data_id, 'data_url':'https://data.mafra.go.kr/opendata/data/indexOpenDataDetail.do?data_id={}'.format(data_id)})
+    total_result.append(row)
     file.close()
     print(file_name)
 
