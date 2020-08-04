@@ -10,12 +10,14 @@ def gogo(idx, name, results):
     dd= crawl(url)
     # open('for_develop_parser.html', 'w+', encoding='utf-8').write(dd)
     # dd = open('for_develop_parser.html', encoding='utf-8').read()
-    titles = [''] * 3
+    infos = [''] * 3
     try:
-        titles = parse(dd)
+        infos = parse(dd)
     except Exception as e:
         print(name, idx, e)
-    results[idx] = {'name':name, 'url':url, 'title1':titles[0], 'title2':titles[1], 'title3':titles[2]}
+    results[idx] = {'name':name, 'url':url, 'title1':infos[0]['title'], 'title2':infos[1]['title'], 'title3':infos[2]['title']
+                    , 'link1': infos[0]['link'], 'link2': infos[1]['link'], 'link3': infos[2]['link']
+                    }
 
 names = open('name.txt', encoding='utf-8').readlines()
 threads = [None] * len(names)
@@ -29,4 +31,4 @@ for i in range(len(names)):
     print(cnt)
 
 time.sleep(30)
-open('total.json', 'w+').write(json.dumps(results))
+open('total_v2.json', 'w+').write(json.dumps(results))
