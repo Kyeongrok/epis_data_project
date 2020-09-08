@@ -39,11 +39,9 @@ def run_thread(idx, results, post_ids, band_id):
         print('{} File size of {} is 0. or already successed'.format(idx, fileName))
 
 def reduce(band_id):
-    fileList = glob.glob('./{}/html/'.format(band_id)+"*.html")
-    fileListSu = glob.glob('./{}/successed/'.format(band_id)+"*.json")
     target_post_ids = []
-    post_ids = [filename.split('/html\\')[1].replace('.html', '') for filename in fileList]
-    success_post_ids = [filename.split('/successed\\')[1].replace('.json', '') for filename in fileListSu]
+    post_ids = [filename.split('/html\\')[1].replace('.html', '') for filename in glob.glob('./{}/html/'.format(band_id)+"*.html")]
+    success_post_ids = [filename.split('/successed\\')[1].replace('.json', '') for filename in glob.glob('./{}/successed/'.format(band_id)+"*.json")]
 
     for post_id in post_ids:
         if post_id not in success_post_ids:
@@ -56,14 +54,24 @@ def reduce(band_id):
         print('{}/{} started'.format(i, total_size))
         threads[i] = Thread(target=run_thread, args=(i, results, target_post_ids, band_id)).start()
         time.sleep(0.02)
-    time.sleep(10)
-    print('band_id:{} result_size:{}'.format(band_id, len(result)))
-    return result
+    time.sleep(2)
+    print('band_id:{} result_size:{}'.format(band_id, len(results)))
+    return results
 
 band_ids = [7727806,49247132,53029650,56517936,56530371,56609722]
-for band_id in band_ids[:1]:
+for band_id in band_ids:
     result = reduce(band_id)
-    open('{}.json'.format(band_id), 'w+').write(json.dumps(result))
+
+    total_result = []
+    for filename in glob.glob('./{}/successed/'.format(band_id) + "*.json"):
+        string = open(filename).read()
+        try:
+            jo = json.loads(string)
+            total_result.append(jo)
+        except Exception as e:
+            print(string, e)
+    open('{}.json'.format(band_id), 'w+').write(json.dumps(total_result))
+    print('total_result_len:{}'.format(len(total_result)))
 
 #             try:
 # except Exception as e:

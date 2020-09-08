@@ -1,3 +1,4 @@
+import glob
 import os
 
 from selenium import webdriver
@@ -21,13 +22,13 @@ def crawl_post(band_id, post_id):
         page_source = driver.page_source
         page_source_len = len(page_source)
         cnt_wait = 0
-        while (page_source_len < 100000 or page_source_len == 91933) and cnt_wait < 3:
-            time.sleep(1)
+        while (page_source_len < 90000 or page_source_len == 91933) and cnt_wait < 4:
+            time.sleep(0.5)
             page_source = driver.page_source
             page_source_len = len(page_source)
             cnt_wait += 1
-            print(cnt_wait, len(page_source), url)
-        print(url, len(page_source))
+            print(cnt_wait, page_source_len, url)
+        print(url, page_source_len)
         file = open(filename, 'w+', encoding='utf-8')
         file.write(page_source)
         file.close()
@@ -57,11 +58,19 @@ def get_post_ids(filename):
 
 for i in range(len(band_infos)):
     band_info = band_infos[i]
+
+    target_post_ids = []
     post_ids = get_post_ids('{}/{}_post_ids.json'.format(band_info['band_id'], band_info['band_id']))
-    total = len(post_ids)
-    for ii in range(len(post_ids)):
+    success_post_ids = [filename.split('/successed\\')[1].replace('.json', '') for filename in glob.glob('./{}/successed/'.format(band_info['band_id'])+"*.json")]
+
+    for post_id in post_ids:
+        if post_id not in success_post_ids:
+            target_post_ids.append(post_id)
+
+    total = len(target_post_ids)
+    for ii in range(len(target_post_ids)):
         try:
-            crawl_post(band_info['band_id'], post_ids[ii])
+            crawl_post(band_info['band_id'], target_post_ids[ii])
             print('{}/{} completed'.format(ii, total))
         except Exception as e:
             print(e)
