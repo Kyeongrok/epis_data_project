@@ -40,6 +40,4 @@ def parse(string):
 
 
 string = open('49247132/html/425435833.html', encoding='utf-8').read()
-
-
 print(parse(string))
