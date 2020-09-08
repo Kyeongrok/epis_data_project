@@ -27,7 +27,7 @@ def run_thread(idx, results, post_ids, band_id):
             su_f.write(json.dumps(row))
             su_f.close()
         except Exception as e:
-            print('-----------{} parse fail---------'.format(fileName), e)
+            print('---{} parse fail---'.format(fileName), e)
             file.close()
             if os.path.exists(fileName):
                 os.remove(fileName)
@@ -53,27 +53,12 @@ def reduce(band_id):
     for i in range(len(target_post_ids)):
         print('{}/{} started'.format(i, total_size))
         threads[i] = Thread(target=run_thread, args=(i, results, target_post_ids, band_id)).start()
-        time.sleep(0.02)
-    time.sleep(2)
+        time.sleep(0.01)
+    time.sleep(1)
     print('band_id:{} result_size:{}'.format(band_id, len(results)))
     return results
 
 band_ids = [7727806,49247132,53029650,56517936,56530371,56609722]
 for band_id in band_ids:
     result = reduce(band_id)
-
-    total_result = []
-    for filename in glob.glob('./{}/successed/'.format(band_id) + "*.json"):
-        string = open(filename).read()
-        try:
-            jo = json.loads(string)
-            total_result.append(jo)
-        except Exception as e:
-            print(string, e)
-    open('{}.json'.format(band_id), 'w+').write(json.dumps(total_result))
-    print('total_result_len:{}'.format(len(total_result)))
-
-#             try:
-# except Exception as e:
-#         print(fileName, e)
 

@@ -1,5 +1,8 @@
 from bs4 import BeautifulSoup
 
+# 게시물의 id를 받아오기 위해 만듬
+# range로 하면 중간에 빠진 번호가 너무 많고 범위도 넓어서 불가능
+
 def get_row(DPostLayoutView):
     postListInfoWrap = DPostLayoutView.find('div', {'class':'postListInfoWrap'})
     if postListInfoWrap != None:
