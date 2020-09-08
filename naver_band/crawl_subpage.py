@@ -16,10 +16,12 @@ def crawl_post(band_id, post_id):
         print(url)
         driver.get(url)
         page_source = driver.page_source
-        time.sleep(2)
+        time.sleep(1)
         file = open(filename, 'w+', encoding='utf-8')
         file.write(page_source)
         file.close()
+    else:
+        print('{} already exist'.format(filename))
 
 # band id로 dir을 만들고 그 안에 page를 .html로 저장 한다
 
@@ -35,10 +37,20 @@ band_infos = [
 ]
 # 인삼, 염소, 딸기
 
-for i in range(5):
+
+def get_post_ids(filename):
+    file = open(filename)
+    string = file.read()
+    ar = string.replace('{','').replace('}','').replace("'","").replace(' ', '').split(',')
+    return sorted(set(ar))
+
+for i in range(len(band_infos)):
     band_info = band_infos[i]
-    for post_id in range(band_info['from'], band_info['to'] + 1):
+    post_ids = get_post_ids('{}/{}_post_ids.json'.format(band_info['band_id'], band_info['band_id']))
+    total = len(post_ids)
+    for ii in range(len(post_ids)):
         try:
-            crawl_post(band_info['band_id'], post_id)
+            crawl_post(band_info['band_id'], post_ids[ii])
+            print('{}/{} completed'.format(ii, total))
         except Exception as e:
             print(e)
