@@ -1,6 +1,7 @@
 import glob
 from naver_band.parse_subpage import parse
 import os, json
+from threading import Thread
 
 def reduce(band_id):
     fileList = glob.glob('./{}/html/'.format(band_id)+"*.html")
@@ -8,7 +9,7 @@ def reduce(band_id):
     cnt = 0
     post_cnt = 0
 
-    result = []
+    result = [None] * len(fileList)
     for fileName in fileList:
         cnt += 1
         file_size = os.path.getsize(fileName)
