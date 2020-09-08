@@ -9,7 +9,10 @@ chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
 driver = webdriver.Chrome('../chrome/chromedriver.exe', options=chrome_options)
 
 def crawl_post(band_id, post_id):
-    filename = '{}/html/{}.html'.format(band_id, post_id)
+    target_path = '{}/html'.format(band_id)
+    if not os.path.isdir(target_path):
+        os.makedirs(target_path)
+    filename = '{}/{}.html'.format(target_path, post_id)
     # 해당 파일 없으면
     if not os.path.isfile(filename):
         url = 'https://band.us/band/{}/post/{}'.format(band_id, post_id)
