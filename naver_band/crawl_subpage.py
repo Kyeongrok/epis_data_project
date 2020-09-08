@@ -1,13 +1,16 @@
-import glob
-import os
-
+import glob, os, platform, time
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-import time
 from datetime import datetime
 chrome_options = Options()
 chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
-driver = webdriver.Chrome('../chrome/chromedriver.exe', options=chrome_options)
+
+chrome_driver_name = 'chromedriver'
+if platform.system() == 'Darwin':
+    pass
+elif platform.system() == 'Windows':
+    chrome_driver_name = 'chromedriver.exe'
+driver = webdriver.Chrome('../chrome/{}'.format(chrome_driver_name), options=chrome_options)
 
 def crawl_post(band_id, post_id):
     target_path = '{}/html'.format(band_id)
