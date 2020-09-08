@@ -3,10 +3,11 @@ from naver_band.parse_subpage import parse
 import os, json, time
 from threading import Thread
 
-def run_thread(idx, results, file_list, band_id):
-    fileName = file_list[idx]
+def run_thread(idx, results, post_ids, band_id):
+    fileName = './{}/html/{}.html'.format(band_id, post_ids[idx])
     success_target_path = './{}/successed'.format(band_id)
-    post_id = fileName.split('html\\')[1].replace('.html', '')
+    print(fileName)
+    post_id = post_ids[idx]
 
     file_size = os.path.getsize(fileName)
     if file_size > 0 and os.path.exists('{}/{}.json'.format(success_target_path, post_id)) == False:
@@ -28,22 +29,32 @@ def run_thread(idx, results, file_list, band_id):
         except Exception as e:
             print('-----------{} parse fail---------'.format(fileName), e)
             file.close()
-            if os.path.exists(fileName):
-                os.remove(fileName)
-                print('{} removed'.format(fileName))
-            else:
-                print("The file does not exist")
+            # if os.path.exists(fileName):
+            #     os.remove(fileName)
+            #     print('{} removed'.format(fileName))
+            # else:
+            #     print("The file does not exist")
 
     else:
         print('{} File size of {} is 0. or already successed'.format(idx, fileName))
 
 def reduce(band_id):
-    fileList = glob.glob('./{}/html/'.format(band_id)+"*.html")[173:]
+    fileList = glob.glob('./{}/html/'.format(band_id)+"*.html")
+    fileListSu = glob.glob('./{}/successed/'.format(band_id)+"*.json")
+    target_post_ids = []
+    post_ids = [filename.split('/html\\')[1].replace('.html', '') for filename in fileList]
+    success_post_ids = [filename.split('/successed\\')[1].replace('.json', '') for filename in fileListSu]
 
-    results = [None] * len(fileList)
-    threads = [None] * len(fileList)
-    for i in range(len(fileList)):
-        threads[i] = Thread(target=run_thread, args=(i, results, fileList, band_id)).start()
+    for post_id in post_ids:
+        if post_id not in success_post_ids:
+            target_post_ids.append(post_id)
+
+    results = [None] * len(target_post_ids)
+    threads = [None] * len(target_post_ids)
+    total_size = len(target_post_ids)
+    for i in range(len(target_post_ids)):
+        print('{}/{} started'.format(i, total_size))
+        threads[i] = Thread(target=run_thread, args=(i, results, target_post_ids, band_id)).start()
         time.sleep(0.02)
     time.sleep(60)
     print('band_id:{} result_size:{}'.format(band_id, len(result)))
