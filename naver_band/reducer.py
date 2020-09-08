@@ -31,7 +31,7 @@ def reduce(band_id):
     return result
 
 band_ids = [7727806,49247132,53029650,56517936,56530371,56609722]
-for band_id in band_ids[2:3]:
+for band_id in band_ids[:1]:
     result = reduce(band_id)
     open('{}.json'.format(band_id), 'w+').write(json.dumps(result))
 

@@ -13,10 +13,13 @@ def crawl_post(band_id, post_id):
     # 해당 파일 없으면
     if not os.path.isfile(filename):
         url = 'https://band.us/band/{}/post/{}'.format(band_id, post_id)
-        print(url)
         driver.get(url)
+        time.sleep(0.5)
         page_source = driver.page_source
-        time.sleep(1)
+        if len(page_source) < 60000:
+            time.sleep(0.5)
+            page_source = driver.page_source
+        print(url, len(page_source))
         file = open(filename, 'w+', encoding='utf-8')
         file.write(page_source)
         file.close()
@@ -28,8 +31,8 @@ def crawl_post(band_id, post_id):
 # 댓글 2개 case
 
 band_infos = [
-    {"band_id":49247132, "category":'참외', 'from':309123755, 'to':425436125},
     {"band_id":7727806, "category": '딸기', 'from':197480765, 'to': 426020244}, # 2020시작:426019840
+    {"band_id":49247132, "category":'참외', 'from':309123755, 'to':425436125},
     {"band_id":56517936, "category":'토마토', 'from':2807, 'to':3465}, # 2020시작:3217
     {"band_id":56530371, "category":'오리', 'from':2, 'to':3688}, # 2020시작 : 3120
     {"band_id":56609722, "category":'무', 'from':353, 'to':492},
