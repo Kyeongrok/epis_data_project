@@ -21,12 +21,12 @@ def crawl_post(band_id, post_id):
         page_source = driver.page_source
         page_source_len = len(page_source)
         cnt_wait = 0
-        while page_source_len < 60000 or page_source_len == 91933:
-            time.sleep(0.5)
+        while (page_source_len < 80000 or page_source_len == 91933) and cnt_wait < 5:
+            time.sleep(1)
             page_source = driver.page_source
             page_source_len = len(page_source)
             cnt_wait += 1
-            print(cnt_wait, len(page_source))
+            print(cnt_wait, len(page_source), url)
         print(url, len(page_source))
         file = open(filename, 'w+', encoding='utf-8')
         file.write(page_source)
