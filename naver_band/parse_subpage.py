@@ -78,6 +78,8 @@ def parse(string):
         writer = re.compile(r'[\n\r\t]').sub('',wr).strip()
     except Exception as e:
         print('error during parse writer')
+
+    # post info 없으면 안되는 정보들
     pstLstInfWr = bsobj.find('div', {'class':'postListInfoWrap'})
     pstLstInfWrA = pstLstInfWr.find('a')
     post_url = pstLstInfWrA['href']
@@ -120,7 +122,9 @@ def parse(string):
         # text_body가 없는 경우가 있음
 
     # 댓글
-    sComments = bsobj.find('div', {'class':'sCommentList'}).find_all('div', {'class':'cComment'})
+    sCommentList = bsobj.find('div', {'class':'sCommentList'})
+    # print(sCommentList)
+    sComments = sCommentList.find_all('div', {'class':'cComment'})
     comments = parse_comments(sComments)
     comment_cnt = len(comments)
     print('comment_cnt:{}'.format(comment_cnt))

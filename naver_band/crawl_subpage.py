@@ -21,7 +21,7 @@ def crawl_post(band_id, post_id):
         page_source = driver.page_source
         page_source_len = len(page_source)
         cnt_wait = 0
-        while (page_source_len < 80000 or page_source_len == 91933) and cnt_wait < 5:
+        while (page_source_len < 100000 or page_source_len == 91933) and cnt_wait < 3:
             time.sleep(1)
             page_source = driver.page_source
             page_source_len = len(page_source)

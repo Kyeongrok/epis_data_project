@@ -29,11 +29,11 @@ def run_thread(idx, results, post_ids, band_id):
         except Exception as e:
             print('-----------{} parse fail---------'.format(fileName), e)
             file.close()
-            # if os.path.exists(fileName):
-            #     os.remove(fileName)
-            #     print('{} removed'.format(fileName))
-            # else:
-            #     print("The file does not exist")
+            if os.path.exists(fileName):
+                os.remove(fileName)
+                print('{} removed'.format(fileName))
+            else:
+                print("The file does not exist")
 
     else:
         print('{} File size of {} is 0. or already successed'.format(idx, fileName))
@@ -56,7 +56,7 @@ def reduce(band_id):
         print('{}/{} started'.format(i, total_size))
         threads[i] = Thread(target=run_thread, args=(i, results, target_post_ids, band_id)).start()
         time.sleep(0.02)
-    time.sleep(60)
+    time.sleep(10)
     print('band_id:{} result_size:{}'.format(band_id, len(result)))
     return result
 
