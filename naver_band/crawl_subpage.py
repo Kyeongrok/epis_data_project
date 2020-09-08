@@ -1,4 +1,5 @@
 import glob, os, platform, time
+import chromedriver_autoinstaller
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from datetime import datetime
@@ -10,7 +11,9 @@ if platform.system() == 'Darwin':
     pass
 elif platform.system() == 'Windows':
     chrome_driver_name = 'chromedriver.exe'
-driver = webdriver.Chrome('../chrome/{}'.format(chrome_driver_name), options=chrome_options)
+
+chromedriver_autoinstaller.install()
+driver = webdriver.Chrome(options=chrome_options)
 
 def crawl_post(band_id, post_id):
     target_path = '{}/html'.format(band_id)
@@ -40,8 +43,6 @@ def crawl_post(band_id, post_id):
 
 # band id로 dir을 만들고 그 안에 page를 .html로 저장 한다
 
-# 댓글 2개 case
-
 band_infos = [
     {"band_id":7727806, "category": '딸기', 'from':197480765, 'to': 426020244}, # 2020시작:426019840
     {"band_id":49247132, "category":'참외', 'from':309123755, 'to':425436125},
@@ -50,8 +51,6 @@ band_infos = [
     {"band_id":56609722, "category":'무', 'from':353, 'to':492},
     {"band_id":53029650, "category": '염소', 'from': 429301115, 'to': 429301860},
 ]
-# 인삼, 염소, 딸기
-
 
 def get_post_ids(filename):
     file = open(filename)
@@ -59,7 +58,7 @@ def get_post_ids(filename):
     ar = string.replace('{','').replace('}','').replace("'","").replace(' ', '').split(',')
     return sorted(set(ar))
 
-for i in range(len(band_infos)):
+for i in range(4,len(band_infos)):
     band_info = band_infos[i]
 
     target_post_ids = []
