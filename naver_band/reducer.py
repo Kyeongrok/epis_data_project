@@ -2,6 +2,7 @@ import glob
 from naver_band.parse_subpage import parse
 import os, json, time
 from threading import Thread
+from dateutil.parser import parse as parse_dt
 
 def run_thread(idx, results, post_ids, band_id):
     fileName = './{}/html/{}.html'.format(band_id, post_ids[idx])
@@ -16,7 +17,8 @@ def run_thread(idx, results, post_ids, band_id):
         string = file.read()
         try:
             row = parse(string)
-            row['year'] = row['post_date'].split(', ')[1]
+            dt = parse_dt(row['post_date'])
+            row['year'] = dt.date().year
             row['post_cnt'] = idx + 1
             results[idx] = row
             print('cnt:{}, {} has successed.'.format(idx + 1, fileName))
@@ -59,6 +61,6 @@ def reduce(band_id):
     return results
 
 band_ids = [7727806,49247132,53029650,56517936,56530371,56609722]
-for band_id in band_ids:
+for band_id in band_ids[3:5]:
     result = reduce(band_id)
 
