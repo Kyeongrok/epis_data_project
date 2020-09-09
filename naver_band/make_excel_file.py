@@ -9,19 +9,20 @@ from naver_band.naver_band_excel_saver_with_style import save_to_excel
 
 def load_and_save(band_id, type_no):
     jj = json.loads(open('{}.json'.format(band_id)).read())
-    print(len(jj))
 
-    list = []
+    list1 = []
     for j in jj:
         comments = j['comments']
         del j['comments']
         del j['image_urls']
         dt = parse_dt(j['post_date'])
+        j['post_id'] = int(j['post_id'])
+        j['year'] = dt.date().year
         j['post_date'] = '{} {}'.format(dt.date(), dt.time())
         cmt_fields = {'cmt_name': '', 'cmt_wrt_time': '', 'cmt_content': '', 'cmt_no':''}
         # print(j)
         j_u = {**j, **cmt_fields}
-        list.append(j_u)
+        list1.append(j_u)
 
         cmt_no = 0
         for comment in comments:
@@ -30,11 +31,12 @@ def load_and_save(band_id, type_no):
             comment['cmt_no'] = cmt_no
             dt_c = parse_dt(comment['cmt_wrt_time'])
             comment['cmt_wrt_time'] = '{} {}'.format(dt_c.date(), dt_c.time())
-            base = {'year':'', 'writer': '', 'post_url': '', 'post_date': '', 'post_id': '', 'band_id': '', 'read_count': '',
+            base = {'year':'', 'writer': '', 'post_url': '', 'post_date': '', 'post_id': j['post_id'], 'band_id': '', 'read_count': '',
                     'post_body': '', 'comment_cnt': '','post_cnt':''}
 
-            list.append({**base, **comment})
-    df = pd.DataFrame(list)
+            list1.append({**base, **comment})
+    list1 = sorted(list1, key=lambda k: k['post_id'])
+    df = pd.DataFrame(list1)
     print(df.shape)
 
     df = df[['year', 'post_cnt', 'writer', 'post_date', 'read_count', 'post_body', 'comment_cnt', 'cmt_no', 'cmt_name', 'cmt_content', 'cmt_wrt_time', 'post_url']]
@@ -52,21 +54,21 @@ band_infos = [
     {"band_id":53029650, "category": '염소', 'from': 429301115, 'to': 429301860},
 ]
 
-for band_info in band_infos[1:]:
+for band_info in band_infos[3:4]:
 
     total_result = []
     su = glob.glob('./{}/successed/'.format(band_info['band_id']) + "*.json")
     print('band_id:{} cnt:{}'.format(band_info['band_id'], len(su)))
-    for filename in su:
-        string = open(filename).read()
-        try:
-            jo = json.loads(string)
-            total_result.append(jo)
-        except Exception as e:
-            print(string, e)
-    file = open('./{}.json'.format(band_info['band_id']), 'w+')
-    file.write(json.dumps(total_result))
-    file.close()
+    # for filename in su:
+    #     string = open(filename).read()
+    #     try:
+    #         jo = json.loads(string)
+    #         total_result.append(jo)
+    #     except Exception as e:
+    #         print(string, e)
+    # file = open('./{}.json'.format(band_info['band_id']), 'w+')
+    # file.write(json.dumps(total_result))
+    # file.close()
 
     print('band_id:{} total_result_len:{}'.format(band_info['band_id'], len(total_result)))
     load_and_save(band_info['band_id'], band_info['category'])
