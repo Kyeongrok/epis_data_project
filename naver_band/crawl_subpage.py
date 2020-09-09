@@ -6,11 +6,6 @@ from datetime import datetime
 chrome_options = Options()
 chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
 
-chrome_driver_name = 'chromedriver'
-if platform.system() == 'Darwin':
-    pass
-elif platform.system() == 'Windows':
-    chrome_driver_name = 'chromedriver.exe'
 
 chromedriver_autoinstaller.install()
 driver = webdriver.Chrome(options=chrome_options)
@@ -24,11 +19,11 @@ def crawl_post(band_id, post_id):
     if not os.path.isfile(filename):
         url = 'https://band.us/band/{}/post/{}'.format(band_id, post_id)
         driver.get(url)
-        time.sleep(0.5)
+        time.sleep(1)
         page_source = driver.page_source
         page_source_len = len(page_source)
         cnt_wait = 0
-        while (page_source_len < 90000 or page_source_len == 91933) and cnt_wait < 4:
+        while (page_source_len < 80000 or page_source_len == 91933) and cnt_wait < 4:
             time.sleep(0.5)
             page_source = driver.page_source
             page_source_len = len(page_source)
@@ -46,10 +41,10 @@ def crawl_post(band_id, post_id):
 band_infos = [
     {"band_id":7727806, "category": '딸기', 'from':197480765, 'to': 426020244}, # 2020시작:426019840
     {"band_id":49247132, "category":'참외', 'from':309123755, 'to':425436125},
+    {"band_id":53029650, "category": '염소', 'from': 429301115, 'to': 429301860},
     {"band_id":56517936, "category":'토마토', 'from':2807, 'to':3465}, # 2020시작:3217
     {"band_id":56530371, "category":'오리', 'from':2, 'to':3688}, # 2020시작 : 3120
     {"band_id":56609722, "category":'무', 'from':353, 'to':492},
-    {"band_id":53029650, "category": '염소', 'from': 429301115, 'to': 429301860},
 ]
 
 def get_post_ids(filename):
@@ -58,7 +53,7 @@ def get_post_ids(filename):
     ar = string.replace('{','').replace('}','').replace("'","").replace(' ', '').split(',')
     return sorted(set(ar))
 
-for i in range(4,len(band_infos)):
+for i in range(len(band_infos)):
     band_info = band_infos[i]
 
     target_post_ids = []

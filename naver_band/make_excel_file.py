@@ -45,18 +45,18 @@ def load_and_save(band_id, type_no):
 
 band_infos = [
     {"band_id":7727806, "category": '딸기', 'from': 426019823, 'to': 426020244},
+    {"band_id":49247132, "category":'참외', 'from':425435833, 'to':425436125},
     {"band_id":56517936, "category":'토마토', 'from':3174, 'to':3465},
     {"band_id":56530371, "category":'오리', 'from':3109, 'to':3688},
     {"band_id":56609722, "category":'무', 'from':400, 'to':492},
-    {"band_id":49247132, "category":'참외', 'from':425435833, 'to':425436125},
     {"band_id":53029650, "category": '염소', 'from': 429301115, 'to': 429301860},
 ]
 
-for band_info in band_infos[:1]:
+for band_info in band_infos[1:]:
 
     total_result = []
     su = glob.glob('./{}/successed/'.format(band_info['band_id']) + "*.json")
-    print('{} {}'.format(band_info['band_id'], len(su)))
+    print('band_id:{} cnt:{}'.format(band_info['band_id'], len(su)))
     for filename in su:
         string = open(filename).read()
         try:
