@@ -54,21 +54,21 @@ band_infos = [
     {"band_id":53029650, "category": '염소', 'from': 429301115, 'to': 429301860},
 ]
 
-for band_info in band_infos[3:4]:
+for band_info in band_infos:
 
     total_result = []
     su = glob.glob('./{}/successed/'.format(band_info['band_id']) + "*.json")
     print('band_id:{} cnt:{}'.format(band_info['band_id'], len(su)))
-    # for filename in su:
-    #     string = open(filename).read()
-    #     try:
-    #         jo = json.loads(string)
-    #         total_result.append(jo)
-    #     except Exception as e:
-    #         print(string, e)
-    # file = open('./{}.json'.format(band_info['band_id']), 'w+')
-    # file.write(json.dumps(total_result))
-    # file.close()
+    for filename in su:
+        string = open(filename).read()
+        try:
+            jo = json.loads(string)
+            total_result.append(jo)
+        except Exception as e:
+            print(string, e)
+    file = open('./{}.json'.format(band_info['band_id']), 'w+')
+    file.write(json.dumps(total_result))
+    file.close()
 
     print('band_id:{} total_result_len:{}'.format(band_info['band_id'], len(total_result)))
     load_and_save(band_info['band_id'], band_info['category'])

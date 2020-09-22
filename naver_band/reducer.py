@@ -61,6 +61,6 @@ def reduce(band_id):
     return results
 
 band_ids = [7727806,49247132,53029650,56517936,56530371,56609722]
-for band_id in band_ids[3:5]:
+for band_id in band_ids:
     result = reduce(band_id)
 
