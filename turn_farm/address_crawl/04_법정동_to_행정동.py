@@ -1,5 +1,7 @@
 import json
+import pandas as pd
 from collections import Counter
+from libs.AddressManager import AddressManager
 
 def make_law_addr_tree(file_name):
     adm_law_codes = open(file_name).readlines()[1:]
@@ -24,25 +26,16 @@ def make_law_addr_tree(file_name):
 
 # make_law_addr_tree('adm_code_law_code.csv')
 
-law_codes = json.loads(open('addr_codes.json').read())
-dic = json.loads(open('tree_law_adm.json').read())
+law_codes = json.loads(open('culture_center_addr_codes.json').read())
 err_cnt = 0
 
-def get_adm_code(law_code):
-    try:
-        f = law_code[:2]
-        s = law_code[2:5]
-        t = law_code[5:]
-        adm_code = dic[f][s][t]
-        return adm_code
-    except Exception as e:
-        print('error---', law_code)
-        return None
+am = AddressManager()
 
+#
 lst = []
 for i in range(len(law_codes)):
     law_code = law_codes[i]
-    adm_code = get_adm_code(law_code)
+    adm_code = am.get_adm_code(law_code)
     if adm_code == None:
         err_cnt += 1
     else:
@@ -51,6 +44,12 @@ for i in range(len(law_codes)):
 
 print('err cnt:', err_cnt)
 
+# 동별 문화의집, 도서관, 박물관, 지방문화원 등
 cnt = Counter(lst)
-print(cnt)
 print(len(cnt.keys()))
+print(cnt)
+
+
+li = am.counter_to_list(cnt)
+
+pd.DataFrame(li).to_excel('ddd.xlsx')

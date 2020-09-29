@@ -2,12 +2,7 @@ import os, sys
 from glob import glob
 import requests, json, time, datetime
 from threading import Thread
-
-
-def call_api(addr):
-    key = 'U01TX0FVVEgyMDIwMDkxODAxMjA1MzExMDIwNTM='
-    url = 'http://www.juso.go.kr/addrlink/addrLinkApi.do?confmKey={}&currentPage=1&countPerPage=10&keyword={}&resultType=json'.format(key,addr)
-    return requests.get(url).json()
+from libs.address_finder import call_api
 
 
 # 어떤 error가 몇번 index에서 났는지를 실행 후에 알아야 한다.
