@@ -26,19 +26,12 @@ cycler==0.10.0
 decorator==4.4.2
 defusedxml==0.6.0
 Django==2.2.4
-dms-utils==0.0.0
-dmsclient==1.5.1
 docopt==0.6.2
 docutils==0.15.2
 elasticsearch==5.4.0
 entrypoints==0.3
 et-xmlfile==1.0.1
 freegames==2.3.2
-game==0.0.1
-gameoflife==0.0.1
-gameoflife-krk==0.0.2
-gast==0.3.3
-gol==1.0.2
 google-auth==1.20.1
 google-auth-oauthlib==0.4.1
 google-pasta==0.2.0
@@ -101,7 +94,6 @@ prompt-toolkit==3.0.6
 protobuf==3.12.4
 psutil==5.4.1
 ptyprocess==0.6.0
-PublicDataReader==0.0.8
 py==1.8.0
 py4j==0.10.9
 pyasn1==0.4.8

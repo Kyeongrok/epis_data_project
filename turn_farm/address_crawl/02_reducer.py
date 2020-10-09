@@ -20,7 +20,7 @@ def run():
             if len(ll) > 1:
                 finished = set([int(row) for row in json.loads(ll)])
     target = set(target_ids) - finished
-    print(len(target_ids), len(finished))
+    print('target_ids:',len(target_ids), len(finished))
     if input('go:1? exit:0') == '0':
         exit()
 
@@ -42,7 +42,7 @@ def run():
             else:
                 print("The file does not exist")
 
-    with open('addr_codes.json', 'w+') as f:
+    with open('../academy_cnt/academy_addr_codes.json', 'w+') as f:
         f.write(json.dumps(addr_codes))
     with open('log.txt', 'w+') as f_e:
         f_e.write(json.dumps(failed_list))
@@ -64,5 +64,5 @@ def reduce(filename):
             print(juso)
 
         return jo['results']['juso'][0]['admCd']
-# run()
-reduce(get_filename(0))
+run()
+# reduce(get_filename(0))

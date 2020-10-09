@@ -1,6 +1,6 @@
 import pandas as pd
 import json, os
-import glob
+import glob, csv
 # '시', '군', '구'라면 앞에 시, 도를 찾아서 붙여주는 기능
 # 행정구역코드에서 '완주군'을 검색한 후 '전라북도'를 찾는다.
 # 이름이 중복될 수도 있지만 일단 붙여보는 것으로 한다.
@@ -15,6 +15,16 @@ class AddressManager():
         self.j_sigungu_sido = json.loads(open(os.path.dirname(__file__) + '/sigungu_sido.json').read())
         self.law_adm_code_dic = json.loads(open(os.path.dirname(__file__) + '/tree_law_adm.json').read())
         self.road_nm_adm_cd_dic = json.loads(open(os.path.dirname(__file__) + '/road_nm_addr_code.json').read())
+        self.adm_cd_dic = json.loads(open(os.path.dirname(__file__) + '/adm_addr_code.json').read())
+
+    def json_from_json_file_nm(self, filename):
+        with open(filename, encoding='utf-8') as f:
+            return json.loads(f.read())
+
+    def read_csv_file_into_list(self, filename, encoding='utf-8'):
+        with open(filename, newline='', encoding=encoding) as f:
+            ll = csv.reader(f)
+            return list(ll)
 
     def get_adm_code(self, law_code):
         '''
@@ -30,6 +40,16 @@ class AddressManager():
         except Exception as e:
             print('error---', law_code)
             return None
+
+    def get_add_code(self, code, addr1, addr2, addr3):
+        result = ''
+        if not isinstance(addr2, str):
+            addr2 = 'NaN'
+        try:
+            result = self.adm_cd_dic[addr1][addr2][addr3]
+        except Exception as e:
+            print('error:', code, addr1, addr2, addr3, type(addr2), e)
+        return str(result)
 
     def make_json_from_excel(self, fr_f_nm, to_f_nm, sheet_name='Sheet1'):
         '''
@@ -87,3 +107,22 @@ class AddressManager():
         file_names = glob.glob(file_location)
         print(len(file_names))
         return file_names
+
+
+    # 읍면동 csv를 tree로 만들기
+    def make_tree(self):
+        dic = {}
+        with open('../대상_시도_군구_읍면동.csv', encoding='utf-8') as f:
+            reader = csv.reader(f)
+            next(reader)
+            for l in reader:
+                if dic.get(l[0]) is None:
+                    dic[l[0]] = {}
+                if dic.get(l[0]).get(l[1]) is None:
+                    dic[l[0]][l[1]] = {}
+                else:
+                    print(l[2])
+                    dic[l[0]][l[1]][l[2]] = 1
+
+        with open('target_addr.json', 'w+', encoding='cp949') as f:
+            f.write(json.dumps(dic))

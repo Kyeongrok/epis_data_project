@@ -23,11 +23,11 @@ with open('t_fm_2019_acc_cult_cv.json') as f:
         else:
             local_food_cnt = 0
 
+        # 2가지 항목이기 때문에 /2해준 값을 붙인다.
         cnt_avg = (apc_cnt + local_food_cnt) / 2
         r['DISTB_AVG_CO'] = cnt_avg
         l.append(r)
 
 open('t_fm_2019_acc_cult_cv_locfd_apc.json', 'w+').write(json.dumps(l))
-
 am = AddressManager()
 am.save_list_to_excel(l, 't_fm_2019_acc_cult_cv_locfd_apc.xlsx')
