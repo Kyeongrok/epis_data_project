@@ -9,4 +9,5 @@ for nm in l:
     jo = am.json_from_json_file_nm(nm)
     result += jo
 
+am.save_list_to_excel(result, 'real_eastate_rent_fee.xlsx')
 am.export_list_to_json_file(result, 'real_eastate_rent_fee.json')

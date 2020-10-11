@@ -35,7 +35,7 @@ am = AddressManager()
 lst = []
 for i in range(len(law_codes)):
     law_code = law_codes[i]
-    adm_code = am.get_adm_code(law_code)
+    adm_code = am.convert_to_adm_code_from_law_code(law_code)
     if adm_code == None:
         err_cnt += 1
     else:

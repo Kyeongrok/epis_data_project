@@ -65,4 +65,4 @@ for item in d.items():
     'ORCHRD_TOP_RENT_AMOUNT':orchrd[1],
     'ORCHRD_LWET_RENT_AMOUNT':orchrd[2]}
 
-print(d_result)
+am.export_list_to_json_file(d_result, 'addr_code_real_estate_rent_prices.json')

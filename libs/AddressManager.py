@@ -26,7 +26,7 @@ class AddressManager():
             ll = csv.reader(f)
             return list(ll)
 
-    def get_adm_code(self, law_code):
+    def convert_to_adm_code_from_law_code(self, law_code):
         '''
         법정동 코드를 행정동 코드로 변화시켜준다.
         행정동 코드는 1111000000 이렇게 10자리로 되어 있다.
@@ -51,6 +51,14 @@ class AddressManager():
             print('error:', code, addr1, addr2, addr3, type(addr2), e)
         return str(result)
 
+    def save_list_to_csv(self, li, filename):
+        if filename == '':
+            print('error: filename is empty')
+            exit()
+        with open(filename, 'w+', newline='', encoding='utf-8') as f:
+            wr = csv.writer(f)
+            wr.writerows(li)
+
     def make_json_from_excel(self, fr_f_nm, to_f_nm, sheet_name='Sheet1'):
         '''
 
@@ -58,9 +66,6 @@ class AddressManager():
         df = pd.read_excel(fr_f_nm, sheet_name=sheet_name)
         # df = df.set_index('sigungu')
         df.reset_index().to_json(to_f_nm, orient='records')
-    def export_excel(self):
-
-        print('export succeed')
 
     def find_do(self, sigungu):
         '''
@@ -97,10 +102,11 @@ class AddressManager():
     def export_list_to_json_file(self, list, file_name):
         with open(file_name, 'w+') as f:
             f.write(json.dumps(list))
-    def export_to_index_json(self, lst, file_name, key_name='id'):
+    def export_to_index_json(self, lst, file_name, key_name=''):
         # df로 변환 한 후에 orient를 index로 해준다.
         df = pd.DataFrame(lst)
-        df = df.set_index(key_name)
+        if key_name != '':
+            df = df.set_index(key_name)
         df.to_json(file_name, orient='index')
 
     def get_file_list(self, file_location):

@@ -13,7 +13,7 @@ def count_addr_code(result_f_nm, to_file_nm):
     for item in su.keys():
         ll = su[item]
         lawcd = ll['juso'][0]['admCd']
-        admcd = am.get_adm_code(lawcd)
+        admcd = am.convert_to_adm_code_from_law_code(lawcd)
         adm_cds.append(admcd)
 
     cnt = Counter(adm_cds)
