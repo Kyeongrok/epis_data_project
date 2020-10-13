@@ -1,6 +1,7 @@
 import requests, json
 from bs4 import BeautifulSoup
-
+from libs.AddressManager import AddressManager
+am = AddressManager()
 targets = [
 {'do':'경기도', 'do_cd':41,'last_page':4},
 {'do':'강원도', 'do_cd':42, 'last_page':4},
@@ -18,8 +19,9 @@ def get_a_row(tr):
         spl = tds[2]['onclick'].replace("javascript:fn_bgChange(this,'infoDetail');fn_mapView(",'').replace(");", "").split(',')
         addr = spl[1].replace("'",'')
         spl_addr = addr.split(' ')
+        law_code = spl[2].replace("'",'')
         return {'category':tds[1].text, 'land_title':tds[5].text, 'price':tds[3].text.replace(",", ""), 'size':tds[4].text.replace(',',''),
-                'addr_code':spl[2].replace("'",''), 'addr':addr, 'sido':spl_addr[0], 'sigungu':spl_addr[1], 'emd':spl_addr[2]}
+                'addr_code':law_code, 'addr':addr, 'sido':spl_addr[0], 'sigungu':spl_addr[1], 'emd':spl_addr[2]}
 
 def parse(string):
     bsobj = BeautifulSoup(string, 'html.parser')

@@ -25,6 +25,9 @@ class AddressManager():
         with open(filename, newline='', encoding=encoding) as f:
             ll = csv.reader(f)
             return list(ll)
+    def read_json(self, filename, encoding='utf-8'):
+        with open(filename, newline='', encoding=encoding) as f:
+            return json.loads(f.read())
 
     def convert_to_adm_code_from_law_code(self, law_code):
         '''

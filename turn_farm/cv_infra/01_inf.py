@@ -2,7 +2,7 @@ import pandas as pd
 import csv, json
 from libs.AddressManager import AddressManager
 
-flloc = 'C:/Users/ocean/Desktop/(200916) 데이터 수집 목록/6. 편의위락시설정보/07_24_05_P.csv'
+flloc = '07_24_05_P.csv'
 law_adm_cd_dic = json.loads(open('road_nm_addr_code.json').read())
 sido_eup_men_amd_cd_dic = json.loads(open('../address/eup_men_dong_addr_cd.json').read())
 am = AddressManager()
@@ -34,7 +34,7 @@ def fn():
     f.close()
 
     pd.DataFrame(t).to_excel('d.xlsx')
-    with open('ddd.csv', 'w+', newline='') as f:
+    with open('cv.csv', 'w+', newline='') as f:
         f.write(json.dumps(t))
 
 fn()

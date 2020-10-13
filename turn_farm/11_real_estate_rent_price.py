@@ -50,7 +50,8 @@ def append_real_estate(befor_filename, target_filename):
                 r['ORCHRD_TOP_RENT_AMOUNT'] = rent_prices['ORCHRD_TOP_RENT_AMOUNT']
                 r['ORCHRD_LWET_RENT_AMOUNT'] = rent_prices['ORCHRD_LWET_RENT_AMOUNT']
             else:
-                print(add_cd)
+                # print(add_cd)
+                pass
             l.append(r)
 
     open(target_filename, 'w+').write(json.dumps(l))

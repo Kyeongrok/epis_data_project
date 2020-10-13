@@ -27,6 +27,7 @@ def append_apc_cult_cv(target_filename):
             # 2가지 항목이기 때문에 /2해준 값을 붙인다.
             cnt_avg = (apc_cnt + local_food_cnt) / 2
             r['DISTB_AVG_CO'] = cnt_avg
+            r['APC'] = apc_cnt
             l.append(r)
 
     open(target_filename, 'w+').write(json.dumps(l))
