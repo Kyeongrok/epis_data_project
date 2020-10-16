@@ -17,6 +17,13 @@ class AddressManager():
         self.road_nm_adm_cd_dic = json.loads(open(os.path.dirname(__file__) + '/road_nm_addr_code.json').read())
         self.adm_cd_dic = json.loads(open(os.path.dirname(__file__) + '/adm_addr_code.json').read())
 
+    def get_distinct_keys(self, filename='../turn_farm_fminf.json', target_fields=['add_code', 'addr1', 'addr2', 'addr3'], target_column='add_code'):
+        df = pd.read_json(filename)
+        df = df[target_fields]
+        df = df.drop_duplicates()
+        print(df.shape)
+        return list(df[target_column])
+
     def json_from_json_file_nm(self, filename):
         with open(filename, encoding='utf-8') as f:
             return json.loads(f.read())

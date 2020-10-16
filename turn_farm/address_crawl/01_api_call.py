@@ -32,7 +32,7 @@ target_ids = [int(f.replace('./success\\', '').replace('.json', '')) for f in gl
 # success
 filenames = glob('./success/*.json')
 finished = set()
-with open('success.json') as f:
+with open('../academy_cnt/success.json') as f:
     ll = f.read()
     finished = set([int(row) for row in json.loads(ll)])
 

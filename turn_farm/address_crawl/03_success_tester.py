@@ -1,6 +1,6 @@
 import json
 from collections import Counter
-with open('success.json') as f:
+with open('../academy_cnt/success.json') as f:
     su_ids = json.loads(f.read())
     print(len(su_ids))
 

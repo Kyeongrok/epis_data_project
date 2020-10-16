@@ -21,8 +21,8 @@ ORCHRD_TOP_RENT_AMOUNT
 ORCHRD_LWET_RENT_AMOUNT
 '''
 
-def append_real_estate(befor_filename, target_filename):
-    realestate_rent = json.load(open('./realestate_data_rent/addr_code_real_estate_rent_prices.json'))
+def append_real_estate(befor_filename, cnt_filename, target_filename):
+    realestate_rent = json.load(open(cnt_filename))
 
     l = []
     with open(befor_filename) as f:
@@ -57,4 +57,4 @@ def append_real_estate(befor_filename, target_filename):
     open(target_filename, 'w+').write(json.dumps(l))
     am = AddressManager()
     am.save_list_to_excel(l, target_filename.split('.')[0] + '.xlsx')
-append_real_estate('t_fm_acc_cult_cv_locfd_apc_instut_real_estate.json', 't_fm_acc_cult_cv_locfd_apc_instut_real_estate_rent.json')
+append_real_estate('t_fm_acc_cult_cv_locfd_apc_instut_real_estate.json','./realestate_data_rent/addr_code_real_estate_rent_prices.json', 't_fm_acc_cult_cv_locfd_apc_instut_real_estate_rent.json')

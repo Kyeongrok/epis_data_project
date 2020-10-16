@@ -2,7 +2,6 @@ import glob, json
 import os
 
 
-
 def get_filename(file_id):
     filename = './success\\{}.json'.format(file_id)
     return filename
@@ -11,7 +10,7 @@ def run():
     target_ids = [int(f.replace('./success\\', '').replace('.json', '')) for f in glob.glob('./success/' + "*.json") ]
     failed_list = []
     addr_codes = []
-    succeed = []
+    succeed = [] # 옥지훈 차장
 
     finished = set()
     if os.path.isfile('success.json'):
@@ -28,6 +27,7 @@ def run():
         filename = './success\\{}.json'.format(file_id)
         try:
             addr_code = reduce(filename)
+            # 여기에서 lawcode를 admcode로 바꿔주어야 한다.
             addr_codes.append(addr_code)
             # 성공 했으면 idx를 저장한다.
             succeed.append(int(file_id))
@@ -42,7 +42,7 @@ def run():
             else:
                 print("The file does not exist")
 
-    with open('../academy_cnt/academy_addr_codes.json', 'w+') as f:
+    with open('academy_addr_codes.json', 'w+') as f:
         f.write(json.dumps(addr_codes))
     with open('log.txt', 'w+') as f_e:
         f_e.write(json.dumps(failed_list))
