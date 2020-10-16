@@ -11,7 +11,8 @@ chromedriver_autoinstaller.install()
 driver = webdriver.Chrome(options=chrome_options)
 
 def run(fr_city, to_addr, owner_age):
-    url = 'http://localhost:8080/bdp/svc/retnFmlg/retnFmlgInfo.do'
+    # url = 'http://localhost:8080/bdp/svc/retnFmlg/retnFmlgInfo.do'
+    url = 'https://bigdata.agrion.kr/bdp/svc/retnFmlg/retnFmlgInfo.do'
     driver.get(url)
 
     driver.find_element_by_xpath('//*[@id="selfDiv"]/div[1]/input').send_keys(fr_city)
@@ -40,6 +41,6 @@ def run(fr_city, to_addr, owner_age):
     # 4.
     driver.find_element_by_xpath('//*[@id="hopeCtvtDiv"]/div/input').send_keys('토마토')
     time.sleep(1)
-    driver.find_element_by_xpath('//*[@id="showResultBtn"]').click()
+    # driver.find_element_by_xpath('//*[@id="showResultBtn"]').click()
 
 run('서울특별시 서초구','충청남도 홍성군', owner_age=49)
