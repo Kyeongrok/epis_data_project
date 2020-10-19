@@ -40,7 +40,8 @@ for item in d.items():
     orchrd = calc_3_m(it['orchrd'])
     # print(item)
 
-    d_result[item[0]] = {'LAD_BFE_AVRG_RENT_AMOUNT':lad_bef[0],
+    d_result[item[0]] = {
+    'LAD_BFE_AVRG_AMOUNT':lad_bef[0],
     'LAD_BFE_TOP_AMOUNT': lad_bef[1],
     'LAD_BFE_LWET_AMOUNT': lad_bef[2],
     'LAD_RICFLD_AVRG_AMOUNT': lad_ricfld[0],

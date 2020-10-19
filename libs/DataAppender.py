@@ -12,6 +12,7 @@ class DataAppender():
         with open(before_filename) as f:
             jl = json.loads(f.read())
             for r in jl:
+                r['LAD_BFE_AVRG_AMOUNT'] = 0.0
                 r['LAD_BFE_TOP_AMOUNT'] = 0.0
                 r['LAD_BFE_LWET_AMOUNT'] = 0.0
                 r['LAD_RICFLD_AVRG_AMOUNT'] = 0.0
@@ -24,14 +25,15 @@ class DataAppender():
                 add_cd = str(r['add_code'])
                 if realestate_buy_sell.get(add_cd) !=  None:
                     buy_sell_prices = realestate_buy_sell[add_cd]
-                    r['LAD_BFE_TOP_AMOUNT'] = buy_sell_prices['LAD_BFE_TOP_AMOUNT']
-                    r['LAD_BFE_LWET_AMOUNT'] = buy_sell_prices['LAD_BFE_LWET_AMOUNT']
-                    r['LAD_RICFLD_AVRG_AMOUNT'] = buy_sell_prices['LAD_RICFLD_AVRG_AMOUNT']
-                    r['LAD_RICFLD_TOP_AMOUNT'] = buy_sell_prices['LAD_RICFLD_TOP_AMOUNT']
-                    r['LAD_RICFLD_LWET_AMOUNT'] = buy_sell_prices['LAD_RICFLD_LWET_AMOUNT']
-                    r['ORCHRD_AVRG_AMOUNT'] = buy_sell_prices['ORCHRD_AVRG_AMOUNT']
-                    r['ORCHRD_TOP_AMOUNT'] = buy_sell_prices['ORCHRD_TOP_AMOUNT']
-                    r['ORCHRD_LWET_AMOUNT'] = buy_sell_prices['ORCHRD_LWET_AMOUNT']
+                    r['LAD_BFE_AVRG_DELNG_AMOUNT'] = buy_sell_prices['LAD_BFE_AVRG_AMOUNT']
+                    r['LAD_BFE_TOP_DELNG_AMOUNT'] = buy_sell_prices['LAD_BFE_TOP_AMOUNT']
+                    r['LAD_BFE_LWET_DELNG_AMOUNT'] = buy_sell_prices['LAD_BFE_LWET_AMOUNT']
+                    r['LAD_RICFLD_AVRG_DELNG_AMOUNT'] = buy_sell_prices['LAD_RICFLD_AVRG_AMOUNT']
+                    r['LAD_RICFLD_TOP_DELNG_AMOUNT'] = buy_sell_prices['LAD_RICFLD_TOP_AMOUNT']
+                    r['LAD_RICFLD_LWET_DELNG_AMOUNT'] = buy_sell_prices['LAD_RICFLD_LWET_AMOUNT']
+                    r['ORCHRD_AVRG_DELNG_AMOUNT'] = buy_sell_prices['ORCHRD_AVRG_AMOUNT']
+                    r['ORCHRD_TOP_DELNG_AMOUNT'] = buy_sell_prices['ORCHRD_TOP_AMOUNT']
+                    r['ORCHRD_LWET_DELNG_AMOUNT'] = buy_sell_prices['ORCHRD_LWET_AMOUNT']
 
                 l.append(r)
 
@@ -46,6 +48,7 @@ class DataAppender():
         with open(before_filename) as f:
             jl = json.loads(f.read())
             for r in jl:
+                r['LAD_BEF_AVRG_RENT_AMOUNT'] = 0.0
                 r['LAD_BFE_TOP_RENT_AMOUNT'] = 0.0
                 r['LAD_BFE_LWET_RENT_AMOUNT'] = 0.0
                 r['LAD_RICFLD_AVRG_RENT_AMOUNT'] = 0.0
@@ -59,6 +62,7 @@ class DataAppender():
                 if realestate_rent.get(add_cd) !=  None:
                     rent_prices = realestate_rent[add_cd]
                     print(rent_prices)
+                    r['LAD_BFE_AVRG_RENT_AMOUNT'] = rent_prices['LAD_BFE_AVRG_RENT_AMOUNT']
                     r['LAD_BFE_TOP_RENT_AMOUNT'] = rent_prices['LAD_BFE_TOP_RENT_AMOUNT']
                     r['LAD_BFE_LWET_RENT_AMOUNT'] = rent_prices['LAD_BFE_LWET_RENT_AMOUNT']
                     r['LAD_RICFLD_AVRG_RENT_AMOUNT'] = rent_prices['LAD_RICFLD_AVRG_RENT_AMOUNT']
