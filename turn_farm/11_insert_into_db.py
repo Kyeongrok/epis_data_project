@@ -4,7 +4,7 @@ import pandas as pd
 engine = create_engine("mysql+mysqldb://root:{}@localhost/{}?charset=utf8".format('', 'epis_bigdata_portal'), encoding='utf-8')
 conn = engine.connect()
 
-df = pd.read_json('tf_elem_middle.json', encoding='utf-8')
+df = pd.read_json('tf_elem_middle_museum.json', encoding='utf-8')
 df = df.rename(columns={
     'code':'CODE', 'farm_id':'FRMHS_ID', 'add_code':'ADRES_CODE',
     'addr1':'CTPRVN', 'addr2':'SIGNGU', 'addr3':'EMD',
@@ -62,12 +62,36 @@ df = df[['CODE', 'FRMHS_ID', 'ADRES_CODE',
 'ORCHRD_AVRG_RENT_AMOUNT',
 'ORCHRD_TOP_RENT_AMOUNT',
 'ORCHRD_LWET_RENT_AMOUNT',
+'APC',
+'CVNSTR_CO',
+'THEAT_CO',
+'LOCAL_FD_AT',
 'ALTRV_ELESCH_AT',
 'ALTRV_ELESCH_MSKUL_HGSCHL_AT',
 'ALTRV_ELESCH_MSKUL_AT',
 'ALTRV_MSKUL_AT',
 'ALTRV_MSKUL_HGSCHL_AT',
-'ALTRV_HGSCHL_AT'
+'ALTRV_HGSCHL_AT',
+'ARPRT_ACCES_POSBLTY',
+'BUS_TRMINL_ACCES_POSBLTY',
+'TRAIN_STATN_ACCES_POSBLTY',
+'ELESCH_ACCES_POSBLTY',
+'MSKUL_ACCES_POSBLTY',
+'HGSCHL_ACCES_POSBLTY',
+'PUBLIC_MLFLT_ACCES_POSBLTY',
+'GNRL_HSPTL_ACCES_POSBLTY',
+'GNRLZ_HSPTL_ACCES_POSBLTY',
+'LRSCL_STOR_ACCES_POSBLTY',
+'TRDIT_MRKT_ACCES_POSBLTY',
+'CLTUR_HOUSE_CO',
+'LBRRY_CO',
+'LCLTY_CLTUR_HOUSE_CO',
+'MUSEUM_CO',
+'TRNSPORT_AVG_ACCES_POSBLTY',
+'EDC_AVG_ACCES_POSBLTY',
+'HSPTL_AVG_ACCES_POSBLTY',
+'CNVNC_MRKT_AVG_ACCES_POSBLTY',
+'INDEX_'
          ]]
 df.to_sql(name='t_rtrn_farmer_data_set2', con=conn, if_exists='append', index=False)
 # print(df)

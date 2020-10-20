@@ -1,5 +1,7 @@
 import glob, json
 import os
+from libs.AddressManager import AddressManager
+am = AddressManager()
 
 
 def get_filename(file_id):
@@ -26,9 +28,10 @@ def run():
     for file_id in target:
         filename = './success\\{}.json'.format(file_id)
         try:
-            addr_code = reduce(filename)
+            law_code = reduce(filename)
+            add_cd = am.convert_to_adm_code_from_law_code(law_code)
             # 여기에서 lawcode를 admcode로 바꿔주어야 한다.
-            addr_codes.append(addr_code)
+            addr_codes.append(add_cd)
             # 성공 했으면 idx를 저장한다.
             succeed.append(int(file_id))
 

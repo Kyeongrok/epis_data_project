@@ -35,6 +35,8 @@ def append_apc_cult_cv(target_filename):
             # 편의점, 극장 수
             if d_cv_store_theater.get(add_cd) !=  None:
                 cv_store_cnt = d_cv_store_theater[add_cd]['cv_cnt']
+                if cv_store_cnt > 1:
+                    cv_store_cnt = 1
                 theater_cnt = d_cv_store_theater[add_cd]['theater_cnt']
             else:
                 cv_store_cnt = 0

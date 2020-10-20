@@ -35,6 +35,10 @@ class AddressManager():
     def read_json(self, filename, encoding='utf-8'):
         with open(filename, newline='', encoding=encoding) as f:
             return json.loads(f.read())
+    def csv_to_json(self, filename, encoding='utf-8'):
+        df = pd.read_csv(filename, encoding=encoding)
+        df.reset_index().to_json(filename.replace('.csv', '.json'), orient='records')
+
 
     def convert_to_adm_code_from_law_code(self, law_code):
         '''
