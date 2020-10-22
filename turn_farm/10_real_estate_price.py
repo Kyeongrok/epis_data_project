@@ -32,7 +32,7 @@ def run(num):
     num = int(num)
     if num == 0 or num == 1:
         'academy'
-        da.append_academy('t_fm_acc_cult_cv_locfd_apc.json',
+        da.append_academy('turn_farm_fminf.json',
                           './academy_cnt/academy_cnt.json',
                           't_fm_acc_cult_cv_locfd_apc_instut.json')
 
@@ -68,6 +68,24 @@ def run(num):
             'tf_elem_middle_museum.json',
             './bank_cnt/bank_cnt.json',
             'tf_elem_middle_museum_bank.json'
+        )
+
+    if num == 0 or num == 9:
+        da.append_culture_centers_avg(
+            'tf_elem_middle_museum_bank.json',
+            'culture_center_library_etc/culture_etc_cnt.json',
+            'tf_elem_middle_museum_bank_culture_etc.json'
+        )
+
+
+    if num == 0 or num == 10:
+        da.append_apc_cult_cv(
+            'tf_elem_middle_museum_bank_culture_etc.json',
+            'tf_elem_middle_museum_bank_culture_etc_apc.json',
+        )
+        da.append_avg(
+            'tf_elem_middle_museum_bank_culture_etc_apc.json',
+            'tf_elem_middle_museum_bank_culture_etc_avg.json'
         )
 
 num = input('select number all:0 academy:1 realestate_price:2, realestate_rent:3, alter_school:4, infra_accessibility:5, museum_culture_center:6')

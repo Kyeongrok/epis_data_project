@@ -4,7 +4,8 @@ import pandas as pd
 engine = create_engine("mysql+mysqldb://root:{}@localhost/{}?charset=utf8".format('', 'epis_bigdata_portal'), encoding='utf-8')
 conn = engine.connect()
 
-df = pd.read_json('tf_elem_middle_museum.json', encoding='utf-8')
+df = pd.read_json('tf_elem_middle_museum_bank_culture_etc_avg.json', encoding='utf-8')
+print(df.shape)
 df = df.rename(columns={
     'code':'CODE', 'farm_id':'FRMHS_ID', 'add_code':'ADRES_CODE',
     'addr1':'CTPRVN', 'addr2':'SIGNGU', 'addr3':'EMD',
@@ -44,6 +45,12 @@ df = df[['CODE', 'FRMHS_ID', 'ADRES_CODE',
         'PARNTS_SUPORT_AT',
         'SCHBOY_BELOW_CHLDRN_ENNC',
         'MSKLSD_HGSCHST_CHLDRN_ENNC',
+        'MNGMT_OWNR_AGE_SCTN',
+        'TRNSPORT_AVG_ACCES_POSBLTY',
+        'EDC_AVG_ACCES_POSBLTY',
+        'HSPTL_AVG_ACCES_POSBLTY',
+        'CNVNC_MRKT_AVG_ACCES_POSBLTY',
+
 'LAD_BFE_AVRG_DELNG_AMOUNT',
 'LAD_BFE_TOP_DELNG_AMOUNT',
 'LAD_BFE_LWET_DELNG_AMOUNT',
@@ -87,13 +94,20 @@ df = df[['CODE', 'FRMHS_ID', 'ADRES_CODE',
 'LBRRY_CO',
 'LCLTY_CLTUR_HOUSE_CO',
 'MUSEUM_CO',
-'TRNSPORT_AVG_ACCES_POSBLTY',
-'EDC_AVG_ACCES_POSBLTY',
-'HSPTL_AVG_ACCES_POSBLTY',
-'CNVNC_MRKT_AVG_ACCES_POSBLTY',
+
+'INSTUT_CO',
+'BANK_CO',
+
+'CNVNC_AVG_CO',
+'CLTUR_AVG_CO',
+'DISTB_AVG_CO',
+'LAD_AVRG_DELNG_AMOUNT',
+'LAD_AVRG_RENT_AMOUNT',
+'RTRN_FRMHS_SPORT_POLICY_CO',
 'INDEX_'
          ]]
-df.to_sql(name='t_rtrn_farmer_data_set2', con=conn, if_exists='append', index=False)
+print(df.shape)
+df.to_sql(name='t_rtrn_farmer_data_set', con=conn, if_exists='append', index=False)
 # print(df)
 
 

@@ -43,4 +43,4 @@ def run(fr_city, to_addr, owner_age):
     time.sleep(1)
     # driver.find_element_by_xpath('//*[@id="showResultBtn"]').click()
 
-run('서울특별시 서초구','충청남도 홍성군', owner_age=49)
+run('경상북도 김천시','충청북도 영동군', owner_age=49)

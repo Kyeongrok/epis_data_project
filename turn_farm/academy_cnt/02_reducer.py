@@ -12,7 +12,7 @@ def run():
     target_ids = [int(f.replace('./success\\', '').replace('.json', '')) for f in glob.glob('./success/' + "*.json") ]
     failed_list = []
     addr_codes = []
-    succeed = [] # 옥지훈 차장
+    succeed = []
 
     finished = set()
     if os.path.isfile('success.json'):

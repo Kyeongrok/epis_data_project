@@ -34,6 +34,5 @@ for filename in file_li:
     l = get_bank_infos(filename)
     res += l
 # am.save_list_to_excel(res, 'bank_info.xlsx')
-am.export_list_to_json_file(res, 'bank_cnt.json')
-
+am.export_list_to_json_file(res, 'bank_list.json')
 
