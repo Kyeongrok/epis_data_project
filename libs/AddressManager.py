@@ -73,7 +73,7 @@ class AddressManager():
             wr = csv.writer(f)
             wr.writerows(li)
 
-    def make_json_from_excel(self, fr_f_nm, to_f_nm, sheet_name='Sheet1'):
+    def convert_excel_to_json(self, fr_f_nm, to_f_nm, sheet_name='Sheet1'):
         '''
 
         '''
