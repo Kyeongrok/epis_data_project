@@ -25,11 +25,11 @@ with open('real_estate_prices.json') as f:
             d[row['addr_code']]['orchrd'] = []
 
         if row['land_title'] == '전':
-            d[row['addr_code']]['lad_bef'].append(float(row['price']))
+            d[row['addr_code']]['lad_bef'].append(float(row['price']) / float(row['size']))
         if row['land_title'] == '답':
-            d[row['addr_code']]['lad_ricfld'].append(float(row['price']))
+            d[row['addr_code']]['lad_ricfld'].append(float(row['price']) / float(row['size']))
         if row['land_title'] == '과수원':
-            d[row['addr_code']]['orchrd'].append(float(row['price']))
+            d[row['addr_code']]['orchrd'].append(float(row['price']) / float(row['size']))
 
 print(len(d.items()))
 d_result = {}
@@ -53,3 +53,4 @@ for item in d.items():
 
 
 am.export_list_to_json_file(d_result, 'addr_code_real_estate_prices.json')
+am.save_list_to_excel(d_result, 'realestate_price.xlsx')
