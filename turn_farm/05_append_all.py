@@ -53,14 +53,14 @@ def run(num):
 
     if num == 0 or num == 5:
         da.append_infra_accessibility_cnt('t_fm_acc_cult_cv_locfd_apc_instut_real_estate_rent_alter_school.json',
-                               'infra_accessibility/2017_infra_accessibility_level2.json',
-                               'tf_elem_middle.json')
-    if num == 0 or num == 6:
-        da.append_infra_accessibility_avg('tf_elem_middle.json',
-                                          'infra_accessibility/2017_infra_accessibility.json',
-                                          'tf_elem_middle_infra_avg.json')
+                               'infra_accessibility/2018_infra_accessibility_level2.json',
+                               'tf_elem_middle_infra.json')
+    # if num == 0 or num == 6:
+    #     da.append_infra_accessibility_avg('tf_elem_middle.json',
+    #                                       'infra_accessibility/2018_infra_accessibility.json',
+    #                                       'tf_elem_middle_infra_avg.json')
     if num == 0 or num == 7:
-        da.append_culture_center_library_museum('tf_elem_middle_infra_avg.json',
+        da.append_culture_center_library_museum('tf_elem_middle_infra.json',
                                                 './culture_center_library_etc/culture_museum_library_cnt.json',
                                                 'tf_elem_middle_museum.json')
     if num == 0 or num == 8:

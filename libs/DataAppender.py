@@ -13,54 +13,6 @@ class DataAppender():
 
 
 
-    def append_infra_accessibility_cnt(self, before_turn_farm_filename, cnt_file_name, target_filename):
-        jo = json.loads(open(before_turn_farm_filename).read())
-        jo_infra = json.load(open(cnt_file_name, encoding='utf-8'))
-
-        field_names = [
-            'ARPRT_ACCES_POSBLTY',
-            'BUS_TRMINL_ACCES_POSBLTY',
-            'TRAIN_STATN_ACCES_POSBLTY',
-            'ELESCH_ACCES_POSBLTY',
-            'MSKUL_ACCES_POSBLTY',
-            'HGSCHL_ACCES_POSBLTY',
-            'PUBLIC_MLFLT_ACCES_POSBLTY',
-            'GNRL_HSPTL_ACCES_POSBLTY',
-            'GNRLZ_HSPTL_ACCES_POSBLTY',
-            'LRSCL_STOR_ACCES_POSBLTY',
-            'TRDIT_MRKT_ACCES_POSBLTY'
-        ]
-        res = []
-        for r in jo:
-            for field_name in field_names:
-                r[field_name] = 0
-
-            if jo_infra.get(str(r['add_code'])) != None:
-                try:
-                    acc = jo_infra[str(r['add_code'])]
-                    r['ARPRT_ACCES_POSBLTY'] = acc['공항']
-                    r['BUS_TRMINL_ACCES_POSBLTY'] = acc['버스터미널']
-                    r['TRAIN_STATN_ACCES_POSBLTY'] = acc['철도역']
-                    r['ELESCH_ACCES_POSBLTY'] = acc['초등학교']
-                    r['MSKUL_ACCES_POSBLTY'] = acc['중학교']
-                    r['HGSCHL_ACCES_POSBLTY'] = acc['고등학교']
-                    r['PUBLIC_MLFLT_ACCES_POSBLTY'] = acc['공공의료시설']
-                    r['GNRL_HSPTL_ACCES_POSBLTY'] = acc['병·의원']
-                    r['GNRLZ_HSPTL_ACCES_POSBLTY'] = acc['종합병원']
-                    r['LRSCL_STOR_ACCES_POSBLTY'] = acc['대규모점포']
-                    r['TRDIT_MRKT_ACCES_POSBLTY'] = acc['전통시장']
-                except Exception as e:
-                    print('error:', e, r)
-            else:
-                print(r['add_code'], '가 jo_acc에 없음')
-            res.append(r)
-
-        print(res[0])
-        print('append_infra_accessibility_cnt res len:', len(res))
-
-        open(target_filename, 'w+').write(json.dumps(res))
-        if self.mode == 0:
-            pd.DataFrame(res).to_excel(target_filename.split('.')[0] + '.xlsx')
 
     def append_academy(self, before_filename, cnt_filename, target_filename):
         # load academy cnt
@@ -228,6 +180,63 @@ class DataAppender():
         print('append_culture_center_library_museum len:', len(l))
         if self.mode == 0:
             self.am.save_list_to_excel(l, target_filename.split('.')[0] + '.xlsx')
+
+    def append_infra_accessibility_cnt(self, before_turn_farm_filename, cnt_file_name, target_filename):
+        jo = json.loads(open(before_turn_farm_filename).read())
+        jo_infra = json.load(open(cnt_file_name, encoding='utf-8'))
+
+        field_names = [
+            'ARPRT_ACCES_POSBLTY',
+            'BUS_TRMINL_ACCES_POSBLTY',
+            'TRAIN_STATN_ACCES_POSBLTY',
+            'ELESCH_ACCES_POSBLTY',
+            'MSKUL_ACCES_POSBLTY',
+            'HGSCHL_ACCES_POSBLTY',
+            'PUBLIC_MLFLT_ACCES_POSBLTY',
+            'GNRL_HSPTL_ACCES_POSBLTY',
+            'GNRLZ_HSPTL_ACCES_POSBLTY',
+            'LRSCL_STOR_ACCES_POSBLTY',
+            'TRDIT_MRKT_ACCES_POSBLTY',
+            'TRNSPORT_AVG_ACCES_POSBLTY',
+            'EDC_AVG_ACCES_POSBLTY',
+            'HSPTL_AVG_ACCES_POSBLTY',
+            'CNVNC_MRKT_AVG_ACCES_POSBLTY',
+        ]
+        res = []
+        for r in jo:
+            for field_name in field_names:
+                r[field_name] = 0
+
+            if jo_infra.get(str(r['add_code'])) != None:
+                try:
+                    acc = jo_infra[str(r['add_code'])]
+                    r['ARPRT_ACCES_POSBLTY'] = acc['공항']
+                    r['BUS_TRMINL_ACCES_POSBLTY'] = acc['버스터미널']
+                    r['TRAIN_STATN_ACCES_POSBLTY'] = acc['철도역']
+                    r['ELESCH_ACCES_POSBLTY'] = acc['초등학교']
+                    r['MSKUL_ACCES_POSBLTY'] = acc['중학교']
+                    r['HGSCHL_ACCES_POSBLTY'] = acc['고등학교']
+                    r['PUBLIC_MLFLT_ACCES_POSBLTY'] = acc['공공의료시설']
+                    r['GNRL_HSPTL_ACCES_POSBLTY'] = acc['병·의원']
+                    r['GNRLZ_HSPTL_ACCES_POSBLTY'] = acc['종합병원']
+                    r['LRSCL_STOR_ACCES_POSBLTY'] = acc['대규모점포']
+                    r['TRDIT_MRKT_ACCES_POSBLTY'] = acc['전통시장']
+                    r['TRNSPORT_AVG_ACCES_POSBLTY'] = mean(acc['광역교통시설'])
+                    r['EDC_AVG_ACCES_POSBLTY'] = mean(acc['교육시설'])
+                    r['HSPTL_AVG_ACCES_POSBLTY'] = mean(acc['의료시설'])
+                    r['CNVNC_MRKT_AVG_ACCES_POSBLTY'] = mean(acc['판매시설'])
+                except Exception as e:
+                    print('error:', e, r)
+            else:
+                print(r['add_code'], '가 jo_acc에 없음')
+            res.append(r)
+
+        print(res[0])
+        print('append_infra_accessibility_cnt res len:', len(res))
+
+        open(target_filename, 'w+').write(json.dumps(res))
+        if self.mode == 0:
+            pd.DataFrame(res).to_excel(target_filename.split('.')[0] + '.xlsx')
 
     def append_infra_accessibility_avg(self, before_turn_farm_filename, cnt_filename, target_filename):
         jo = json.loads(open(before_turn_farm_filename).read())
