@@ -87,6 +87,12 @@ def run(num):
             'tf_elem_middle_museum_bank_culture_etc_apc.json',
             'tf_elem_middle_museum_bank_culture_etc_avg.json'
         )
+    if num == 0 or num == 11:
+        da.append_item_nm_cd(
+            'tf_elem_middle_museum_bank_culture_etc_avg.json',
+            'item_nm_code/farmer_item_code_name_idx.json',
+            'tf_elem_middle_museum_bank_culture_etc_avg_item.json',
+        )
 
 num = input('select number all:0 academy:1 realestate_price:2, realestate_rent:3, alter_school:4, infra_accessibility:5, museum_culture_center:6')
 

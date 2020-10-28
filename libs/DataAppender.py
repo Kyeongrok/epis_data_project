@@ -379,4 +379,24 @@ class DataAppender():
             l.append(r)
         print('final cnt:{}'.format(len(l)))
         open(target_filename, 'w+').write(json.dumps(l))
+        if self.mode == 0:
+            pd.DataFrame(l).to_excel(target_filename.split('.')[0] + '.xlsx')
+
+    def append_item_nm_cd(self, before_turn_farm_filename, cnt_filename, target_filename):
+        jo = json.loads(open(before_turn_farm_filename).read())
+        jo_cnt = json.loads(open(cnt_filename).read())
+        l = []
+
+        for r in jo:
+            r['ITEM_CODE'] = ''
+            r['ITEM_NM'] = ''
+            farmer_code = str(r['code'])
+            if jo_cnt.get(farmer_code) != None:
+                product_info = jo_cnt[farmer_code]
+                r['ITEM_CODE'] = product_info['품목코드']
+                r['ITEM_NM'] = product_info['소분류']
+            else:
+                print('ITEM_CODE, ITEM_NM 생성중 에러 farmer_code:', farmer_code)
+            l.append(r)
+        open(target_filename, 'w+').write(json.dumps(l))
         pd.DataFrame(l).to_excel(target_filename.split('.')[0] + '.xlsx')

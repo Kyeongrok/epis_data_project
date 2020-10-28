@@ -116,9 +116,10 @@ class AddressManager():
     def export_list_to_json_file(self, list, file_name):
         with open(file_name, 'w+') as f:
             f.write(json.dumps(list))
-    def export_to_index_json(self, lst, file_name, key_name=''):
+    def export_to_index_json(self, lst, file_name, key_name='', drop_duplicate_target_keys = []):
         # df로 변환 한 후에 orient를 index로 해준다.
         df = pd.DataFrame(lst)
+        df = df.drop_duplicates(drop_duplicate_target_keys)
         if key_name != '':
             df = df.set_index(key_name)
         df.to_json(file_name, orient='index')

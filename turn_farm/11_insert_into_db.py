@@ -4,7 +4,7 @@ import pandas as pd
 engine = create_engine("mysql+mysqldb://root:{}@localhost/{}?charset=utf8".format('', 'epis_bigdata_portal'), encoding='utf-8')
 conn = engine.connect()
 
-df = pd.read_json('tf_elem_middle_museum_bank_culture_etc_avg.json', encoding='utf-8')
+df = pd.read_json('tf_elem_middle_museum_bank_culture_etc_avg_item.json', encoding='utf-8')
 print(df.shape)
 df = df.rename(columns={
     'code':'CODE', 'farm_id':'FRMHS_ID', 'add_code':'ADRES_CODE',
@@ -97,7 +97,8 @@ df = df[['CODE', 'FRMHS_ID', 'ADRES_CODE',
 
 'INSTUT_CO',
 'BANK_CO',
-
+'ITEM_NM',
+'ITEM_CODE',
 'CNVNC_AVG_CO',
 'CLTUR_AVG_CO',
 'DISTB_AVG_CO',
