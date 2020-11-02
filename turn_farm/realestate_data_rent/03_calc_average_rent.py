@@ -35,12 +35,13 @@ with open('real_eastate_rent_fee.json') as f:
         if d.get(row['addr_code']).get('orchrd') == None:
             d[row['addr_code']]['orchrd'] = []
 
+        # 가격단위 원 (만원아님)
         if row['land_title'] == '전':
-            d[row['addr_code']]['lad_bef'].append(float(row['price']) / float(row['size']))
+            d[row['addr_code']]['lad_bef'].append(float(row['price']) / float(row['size']) * 3.3)
         if row['land_title'] == '답':
-            d[row['addr_code']]['lad_ricfld'].append(float(row['price']) / float(row['size']))
+            d[row['addr_code']]['lad_ricfld'].append(float(row['price']) / float(row['size']) * 3.3)
         if row['land_title'] == '과수원':
-            d[row['addr_code']]['orchrd'].append(float(row['price']) / float(row['size']))
+            d[row['addr_code']]['orchrd'].append(float(row['price']) / float(row['size']) * 3.3)
 
 def calc_3_m(li):
     if len(li) > 0:

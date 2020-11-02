@@ -25,4 +25,10 @@ class ESHelper():
         for hit in hits:
             print(hit)
 
+    def show_tables(self):
+        r = self.es.indices.get_alias('*')
+        print(r)
 
+    def show_columns(self, idxnm):
+        r = self.es.indices.get_mapping(idxnm)
+        print(r)

@@ -25,11 +25,11 @@ with open('real_estate_prices.json') as f:
             d[row['addr_code']]['orchrd'] = []
 
         if row['land_title'] == '전':
-            d[row['addr_code']]['lad_bef'].append(float(row['price']) / float(row['size']))
+            d[row['addr_code']]['lad_bef'].append(float(row['price']) / float(row['size']) * 3.3 * 10000)
         if row['land_title'] == '답':
-            d[row['addr_code']]['lad_ricfld'].append(float(row['price']) / float(row['size']))
+            d[row['addr_code']]['lad_ricfld'].append(float(row['price']) / float(row['size']) * 3.3 * 10000)
         if row['land_title'] == '과수원':
-            d[row['addr_code']]['orchrd'].append(float(row['price']) / float(row['size']))
+            d[row['addr_code']]['orchrd'].append(float(row['price']) / float(row['size']) * 3.3 * 10000)
 
 print(len(d.items()))
 d_result = {}

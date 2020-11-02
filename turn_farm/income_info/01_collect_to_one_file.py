@@ -15,7 +15,7 @@ fi_li = am.get_file_list('2019/*.xlsx')
 
 l_df = [None] * len(fi_li)
 
-for i in range(len(fi_li)):
+for i in range(1, len(fi_li)):
     nm = fi_li[i]
     # df만든다.
     # 하나로 합친다
@@ -31,11 +31,13 @@ for i in range(len(fi_li)):
     df['작물구분'] = category
     print(nm, df.shape)
     l_df[i] = df
-
 df_r = pd.concat(l_df)
+print(df_r.shape)
+df_r = df_r[df_r['기준면적'] != '평']
+df_r = df_r[df_r['도명'] != '']
+print(df_r.shape)
 df_r.to_json('income_info.json', orient='records')
 df_r.to_excel('income_info.xlsx')
 
-print(45000 * 350)
 
 

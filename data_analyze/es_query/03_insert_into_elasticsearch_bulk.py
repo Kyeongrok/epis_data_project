@@ -22,8 +22,8 @@ def insert_document_bulk(items, index_name):
     print('bulk insert completed.', rtn, datetime.now())
 
 # fl = fm.get_file_list('./separated/*.json')
-jo = fm.json_from_json_file_nm('2019_farmer.json')
-
-
-insert_document_bulk(jo, 'farmer_2019')
+# jo = fm.json_from_json_file_nm('2019_farmer.json')
+jo = fm.json_from_json_file_nm('../turn_farm/tf_elem_middle_museum_bank_culture_etc_avg_item.json')
+# print(jo)
+insert_document_bulk(jo, 't_fm_data_set')
 
