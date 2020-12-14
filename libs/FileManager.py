@@ -8,6 +8,7 @@ class FileManager():
         pass
 
     def json_from_json_file_nm(self, filename):
+        print(filename)
         with open(filename, encoding='utf-8') as f:
             return json.loads(f.read())
 
@@ -46,3 +47,11 @@ class FileManager():
                 with open('{}{:02d}_{}'.format(target_path, i, from_filename), 'w+') as f:
                     f.write(json.dumps(oo))
         print('finished at:', datetime.now())
+
+    def head(self, filename, n):
+        print('Filename:{} N:{}'.format(filename, n))
+        with open(filename, encoding='utf-8') as myfile:
+            head = [next(myfile) for x in range(n)]
+        print(len(head))
+        for l in head:
+            print(l)

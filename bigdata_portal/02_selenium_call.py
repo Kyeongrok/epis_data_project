@@ -12,8 +12,9 @@ driver = webdriver.Chrome(options=chrome_options)
 
 def run(fr_city, to_addr, owner_age):
     url = 'http://localhost:8080/ReturnFarm'
-    url = 'http://localhost:8081/ReturnFarm'
-    # url = 'https://bigdata.agrion.kr/bdp/svc/retnFmlg/retnFmlgInfo.do'
+    # url = 'http://localhost:8081/ReturnFarm'
+    url = 'https://bigdata.agrion.kr/bdp/svc/retnFmlg/retnFmlgInfo.do'
+    url = 'https://bigdata.agrion.kr/ReturnFarm'
     driver.get(url)
 
     driver.find_element_by_xpath('//*[@id="selfDiv"]/div[1]/input').send_keys(fr_city)
