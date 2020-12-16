@@ -10,11 +10,7 @@ chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
 chromedriver_autoinstaller.install()
 driver = webdriver.Chrome(options=chrome_options)
 
-def run(fr_city, to_addr, owner_age):
-    url = 'http://localhost:8080/ReturnFarm'
-    # url = 'http://localhost:8081/ReturnFarm'
-    url = 'https://bigdata.agrion.kr/bdp/svc/retnFmlg/retnFmlgInfo.do'
-    url = 'https://bigdata.agrion.kr/ReturnFarm'
+def run(url, fr_city, to_addr, crop, owner_age):
     driver.get(url)
 
     driver.find_element_by_xpath('//*[@id="selfDiv"]/div[1]/input').send_keys(fr_city)
@@ -41,8 +37,13 @@ def run(fr_city, to_addr, owner_age):
     driver.find_element_by_xpath('//*[@id="setAddrBtn"]').click()
 
     # 4.
-    driver.find_element_by_xpath('//*[@id="hopeCtvtDiv"]/div/input').send_keys('포도')
+    driver.find_element_by_xpath('//*[@id="hopeCtvtDiv"]/div/input').send_keys(crop)
     time.sleep(1)
     # driver.find_element_by_xpath('//*[@id="showResultBtn"]').click()
 
-run('경상북도 김천시','충청북도 영동군', owner_age=49)
+
+url = 'http://localhost:8080/ReturnFarm'
+url = 'https://bigdata.agrion.kr/bdp/svc/retnFmlg/retnFmlgInfo.do'
+url = 'http://localhost:8080/ReturnFarm'
+url = 'https://bigdata.agrion.kr/ReturnFarm'
+run(url, '도움3로','조치원', '딸기', owner_age=34)
