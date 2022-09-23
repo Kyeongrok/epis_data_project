@@ -91,7 +91,7 @@ pipenv==2018.11.26
 pluggy==0.12.0
 prometheus-client==0.8.0
 prompt-toolkit==3.0.6
-protobuf==3.12.4
+protobuf==3.18.3
 psutil==5.4.1
 ptyprocess==0.6.0
 py==1.8.0
